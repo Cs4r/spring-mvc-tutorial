@@ -8,6 +8,9 @@ import java.math.BigDecimal;
  * TODO: Make it immutable (Use builder pattern to instantiate objects of this
  * class) + add documentation
  * 
+ * TODO: Consider Optional<Field> for fields which might be null at some point
+ * in time
+ * 
  * @author cs4r
  *
  */

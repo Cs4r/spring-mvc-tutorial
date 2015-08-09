@@ -1,12 +1,16 @@
-package cs4r.labs.webstore.domain.repository;
+package cs4r.labs.webstore.domain.repository.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
 import cs4r.labs.webstore.domain.Product;
+import cs4r.labs.webstore.domain.repository.ProductRepository;
 
 /**
  * Just a dummy Implementation of {@link ProductRepository} for in-memory
@@ -66,5 +70,46 @@ public class InMemoryProductRepository implements ProductRepository {
 		}
 
 		return productById;
+	}
+
+	@Override
+	public List<Product> getProductsByCategory(String category) {
+		List<Product> categoryProducts = new ArrayList<Product>();
+
+		for (Product product : listOfProducts) {
+			if (category != null && category.equalsIgnoreCase(product.getCategory())) {
+				categoryProducts.add(product);
+			}
+		}
+
+		return categoryProducts;
+	}
+
+	public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+		Set<Product> productsByBrand = new HashSet<Product>();
+		Set<Product> productsByCategory = new HashSet<Product>();
+
+		Set<String> criterias = filterParams.keySet();
+
+		if (criterias.contains("brand")) {
+			for (String brandName : filterParams.get("brand")) {
+				
+				for (Product product : listOfProducts) {
+					if (brandName.equalsIgnoreCase(product.getManufacturer())) {
+						productsByBrand.add(product);
+					}
+				}
+			}
+		}
+
+		if (criterias.contains("category")) {
+			for (String category : filterParams.get("category")) {
+				productsByCategory.addAll(this.getProductsByCategory(category));
+			}
+		}
+
+		productsByCategory.retainAll(productsByBrand);
+
+		return productsByCategory;
 	}
 }

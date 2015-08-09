@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * TODO: Refactor and add documentation
+ * Main controller, it serves the main page of the web-app
  * 
  * @author cs4r
  *
