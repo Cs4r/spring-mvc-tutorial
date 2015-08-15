@@ -48,4 +48,12 @@ public interface ProductRepository {
 	 */
 	Set<Product> getProductsByFilter(Map<String, List<String>> filterParams);
 
+	/**
+	 * Adds a new product in the data warehouse
+	 * 
+	 * @param product
+	 *            Product to be added
+	 */
+	void addProduct(Product product);
+
 }
