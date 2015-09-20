@@ -18,6 +18,11 @@ public class HomeController {
 		model.addAttribute("greeting", "Welcome to Web Store!");
 		model.addAttribute("tagline", "The one and only amazing webstore");
 
+		return "forward:/welcome/greeting";
+	}
+	
+	@RequestMapping("/welcome/greeting")
+	public String greeting() {
 		return "welcome";
 	}
 }
